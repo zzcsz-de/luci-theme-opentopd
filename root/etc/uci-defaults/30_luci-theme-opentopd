@@ -1,10 +1,8 @@
 #!/bin/sh
 
-rm -Rf /var/luci-modulecache
-rm -Rf /var/luci-indexcache
-uci batch <<-EOF
-	set luci.themes.Opentopd=/luci-static/opentopd
-	set luci.main.mediaurlbase=/luci-static/opentopd
-	commit luci
-EOF
+# Register the theme without replacing the user's active theme.
+# Cache handling is delegated to the build system's default postinst.
+uci -q set luci.themes.Opentopd='/luci-static/opentopd' || exit 1
+uci -q commit luci || exit 1
+
 exit 0
