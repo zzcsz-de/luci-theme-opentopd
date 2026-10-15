@@ -1,0 +1,49 @@
+/* Experimental modern LuCI compatibility layer. Apache-2.0.
+ * Keep overrides scoped; do not load Bootstrap cascade.css alongside this theme.
+ */
+.main > .main-left { z-index: 1002; }
+.main > .main-left > #topmenu {
+ display: block !important; float: none !important;
+ width: 100% !important; margin: 0 !important; padding: 0 !important;
+}
+.main > .main-left > #topmenu > li.slide {
+ display: block !important; float: none !important; clear: both !important;
+ position: relative !important; width: 100% !important;
+ margin: 0 !important; padding: 0 !important;
+}
+.main > .main-left > #topmenu > li.slide > a.menu {
+ display: block !important; float: none !important;
+ position: relative !important; width: 100% !important;
+ box-sizing: border-box !important; pointer-events: auto !important;
+ font-size: 14px; line-height: 1.5;
+}
+.main > .main-left > #topmenu > li.slide > ul.slide-menu {
+ display: none !important; float: none !important; position: static !important;
+ width: 100% !important; margin: 0 !important; box-sizing: border-box !important;
+}
+.main > .main-left > #topmenu > li.slide > ul.slide-menu.active { display: block !important; }
+.main > .main-left > #topmenu .slide-menu > li {
+ display: block !important; float: none !important; width: 100% !important;
+}
+.main > .main-left > #topmenu .slide-menu > li > a {
+ display: block !important; position: relative !important;
+ pointer-events: auto !important; font-size: 13px; line-height: 1.5;
+}
+.login-bg {
+ pointer-events: none !important;
+ background-image: url('../img/bg1.jpg');
+}
+.darkMask { display: none; }
+body.node-main-login .main-left { display: none; }
+body.node-main-login .main-right { margin-left: 0; width: 100%; }
+.main > .main-right, .main-right #maincontent { min-width: 0; box-sizing: border-box; }
+.main-right #maincontent > .container {
+ width: 100%; max-width: 100%; box-sizing: border-box;
+ padding-left: 16px; padding-right: 16px;
+}
+.main-right footer {
+ box-sizing: border-box; max-width: 100%; padding: 16px;
+ white-space: normal; overflow-wrap: anywhere; text-align: left;
+}
+#tabmenu:empty { display: none; }
+#indicators { position: relative; z-index: 2; }

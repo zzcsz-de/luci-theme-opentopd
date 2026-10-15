@@ -1,0 +1,12 @@
+{% if (!blank_page): %}
+</div></div>
+<footer class="mobile-hide">
+<a href="https://github.com/openwrt/luci">Powered by {{ version.luciname }} ({{ version.luciversion }})</a>
+/ Opentopd — experimental ucode port
+/ {{ version.distname }} {{ version.distversion }}
+<ul class="breadcrumb pull-right" id="modemenu" style="display:none"></ul>
+</footer>
+</div></div>
+<script>L.require('menu-opentopd')</script>
+{% endif %}
+</body></html>

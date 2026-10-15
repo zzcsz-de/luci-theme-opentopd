@@ -1,0 +1,50 @@
+{#
+ Experimental ucode port. Layout derived from opentopd by sirpdboy
+ and LuCI Bootstrap by Steven Barth, David Menting and Jo-Philipp Wich.
+ Licensed to the public under the Apache License 2.0.
+#}
+{%
+ import { getuid, getspnam } from 'luci.core';
+ const boardinfo = ubus.call('system', 'board') ?? {};
+ http.prepare_content('text/html; charset=UTF-8');
+%}
+<!DOCTYPE html>
+<html lang="{{ dispatcher.lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ striptags(`${boardinfo.hostname ?? '?'}${dispatched?.title ? ` | ${_(dispatched.title)}` : ''}`) }}</title>
+<link rel="icon" href="{{ media }}/logo.png">
+<link rel="stylesheet" href="{{ media }}/css/style.css?v=ucode-1">
+<link rel="stylesheet" href="{{ media }}/css/compat.css?v=ucode-1">
+{% if (node?.css): %}
+<link rel="stylesheet" href="{{ resource }}/{{ node.css }}">
+{% endif %}
+{% if (css): %}<style>{{ css }}</style>{% endif %}
+<script src="{{ dispatcher.build_url('admin/translations', dispatcher.lang) }}"></script>
+<script src="{{ resource }}/cbi.js"></script>
+</head>
+<body class="lang_{{ dispatcher.lang }} {{ ctx.authsession ? 'logged-in' : 'node-main-login' }}" data-page="{{ entityencode(join('-', ctx.request_path), true) }}">
+{% if (!blank_page): %}
+<div class="main">
+<div class="main-left">
+<div class="sidenav-header d-flex align-items-center"><a class="brand" href="{{ dispatcher.build_url('admin') }}">{{ striptags(boardinfo.hostname ?? '?') }}</a></div>
+<ul class="nav" id="topmenu"></ul>
+</div>
+<div class="main-right">
+<header class="bg-primary"><div class="fill"><div class="container">
+<a class="showSide" href="#" aria-label="{{ _('Toggle menu') }}"></a>
+<a class="brand" href="{{ dispatcher.build_url('admin') }}">{{ striptags(boardinfo.hostname ?? '?') }}</a>
+<div id="indicators" class="pull-right"></div>
+</div></div></header>
+<div class="darkMask"></div><div class="login-bg"></div>
+<div id="maincontent"><div class="container">
+{% if (getuid() == 0 && getspnam('root')?.pwdp === ''): %}
+<div class="alert-message warning"><h4>{{ _('No password set!') }}</h4><p>{{ _('There is no password set on this router. Please configure a root password to protect the web interface.') }}</p></div>
+{% endif %}
+{% if (boardinfo.rootfs_type == 'initramfs'): %}
+<div class="alert-message warning"><h4>{{ _('System running in recovery (initramfs) mode.') }}</h4><p>{{ _('No changes to settings will be stored and are lost after rebooting.') }}</p></div>
+{% endif %}
+<noscript><div class="alert-message warning">{{ _('You must enable JavaScript in your browser or LuCI will not work properly.') }}</div></noscript>
+<div id="tabmenu" style="display:none"></div>
+{% endif %}
