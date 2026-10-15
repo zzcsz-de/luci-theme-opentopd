@@ -1,0 +1,53 @@
+name: Build OpenWrt APK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out theme
+        uses: actions/checkout@v4
+
+      - name: Download OpenWrt 25.12 SDK
+        run: |
+          set -euo pipefail
+          SDK_URL='https://downloads.openwrt.org/releases/25.12.0/targets/x86/64/openwrt-sdk-25.12.0-x86-64_gcc-15.1.0_musl.Linux-x86_64.tar.zst'
+          curl -fL --retry 3 -o sdk.tar.zst "$SDK_URL"
+          tar --zstd -xf sdk.tar.zst
+          mv openwrt-sdk-* openwrt-sdk
+
+      - name: Install theme feed
+        working-directory: openwrt-sdk
+        run: |
+          set -euo pipefail
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
+          rm -rf package/luci-theme-opentopd
+          cp -a "$GITHUB_WORKSPACE" package/luci-theme-opentopd
+          rm -rf package/luci-theme-opentopd/.git
+
+      - name: Build package
+        working-directory: openwrt-sdk
+        run: |
+          set -euo pipefail
+          make defconfig
+          make package/luci-theme-opentopd/compile V=s
+
+      - name: Collect artifact
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          find openwrt-sdk/bin -type f \( -name 'luci-theme-opentopd*.apk' -o -name 'luci-theme-opentopd*.ipk' \) -print -exec cp {} dist/ \;
+          test -n "$(find dist -type f | head -n1)"
+
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: luci-theme-opentopd-openwrt-25.12
+          path: dist/*
+          if-no-files-found: error
