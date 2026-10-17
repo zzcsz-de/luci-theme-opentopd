@@ -47,3 +47,26 @@ body.node-main-login .main-right { margin-left: 0; width: 100%; }
 }
 #tabmenu:empty { display: none; }
 #indicators { position: relative; z-index: 2; }
+
+/* Candidate fix for plugin form tabs; requires runtime regression testing.
+ * LuCI owns tab state and click handlers. Do not implement another tab manager.
+ * Legacy CBI inline display:none remains authoritative on unmarked panels.
+ */
+#maincontent .cbi-tabmenu > li > a,
+#maincontent .cbi-tabmenu > li > button {
+ pointer-events: auto;
+ cursor: pointer;
+}
+#maincontent .cbi-tabcontainer {
+ display: block;
+}
+#maincontent [data-tab][data-tab-active="false"] {
+ display: none !important;
+}
+#maincontent [data-tab][data-tab-active="true"] {
+ display: block !important;
+}
+/* Preserve explicit hidden state for dependency-controlled content. */
+#maincontent [data-tab][hidden] {
+ display: none !important;
+}
