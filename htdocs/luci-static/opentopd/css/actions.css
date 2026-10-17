@@ -1,0 +1,48 @@
+/* Apache-2.0. Footer dropdown presentation only; preserve LuCI handlers.
+ * Candidate fix for standard LuCI dropdown .open controls.
+ */
+body.logged-in .cbi-page-actions .cbi-dropdown:is(.btn, .cbi-button-apply) > .open {
+ display: inline-flex !important;
+ position: relative !important;
+ align-items: center;
+ justify-content: center;
+ width: 24px !important;
+ min-width: 24px !important;
+ height: 24px !important;
+ min-height: 0 !important;
+ margin: 0 0 0 4px !important;
+ padding: 0 !important;
+ vertical-align: middle;
+ background: transparent !important;
+ border: 0 !important;
+ border-radius: 2px;
+ box-shadow: none !important;
+ font-size: 0 !important;
+ line-height: 1 !important;
+ color: #fff !important;
+ cursor: pointer;
+}
+body.logged-in .cbi-page-actions .cbi-dropdown:is(.btn, .cbi-button-apply) > .open::before {
+ content: '' !important;
+ display: block !important;
+ position: static !important;
+ width: 0 !important;
+ height: 0 !important;
+ margin: 0 !important;
+ padding: 0 !important;
+ background: transparent !important;
+ border: 0 solid transparent !important;
+ border-left-width: 4px !important;
+ border-right-width: 4px !important;
+ border-top: 5px solid #fff !important;
+ transform: none !important;
+ box-shadow: none !important;
+ pointer-events: none;
+}
+body.logged-in .cbi-page-actions .cbi-dropdown:is(.btn, .cbi-button-apply) > .open::after {
+ content: none !important;
+}
+body.logged-in .cbi-page-actions .cbi-dropdown:is(.btn, .cbi-button-apply) > .open:focus-visible {
+ outline: 2px solid #fff;
+ outline-offset: 1px;
+}

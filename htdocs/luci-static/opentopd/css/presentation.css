@@ -1,3 +1,4 @@
+@import url('actions.css?v=2');
 /* Apache-2.0. Scoped presentation fixes; retain LuCI widget behavior. */
 body.node-main-login .main-right #maincontent > .container { width: min(420px, calc(100% - 32px)) !important; max-width: 420px !important; margin: 8vh auto 24px !important; padding: 24px !important; background: rgba(255,255,255,.82) !important; border-radius: 12px; }
 body.node-main-login #maincontent { background: transparent !important; }
