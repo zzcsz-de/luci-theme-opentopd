@@ -21,6 +21,8 @@
 <link rel="stylesheet" href="{{ resource }}/{{ node.css }}">
 {% endif %}
 {% if (css): %}<style>{{ css }}</style>{% endif %}
+<link rel="stylesheet" href="{{ media }}/css/presentation.css?v=1">
+<script defer src="{{ media }}/js/presentation.js?v=1"></script>
 <script src="{{ dispatcher.build_url('admin/translations', dispatcher.lang) }}"></script>
 <script src="{{ resource }}/cbi.js"></script>
 </head>

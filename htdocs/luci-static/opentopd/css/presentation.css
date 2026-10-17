@@ -1,0 +1,18 @@
+/* Apache-2.0. Scoped presentation fixes; retain LuCI widget behavior. */
+body.node-main-login .main-right #maincontent > .container { width: min(420px, calc(100% - 32px)) !important; max-width: 420px !important; margin: 8vh auto 24px !important; padding: 24px !important; background: rgba(255,255,255,.82) !important; border-radius: 12px; }
+body.node-main-login #maincontent { background: transparent !important; }
+body.node-main-login #maincontent form, body.node-main-login #maincontent .cbi-map, body.node-main-login #maincontent .cbi-section { width: 100% !important; min-width: 0 !important; margin: 0 !important; padding: 0 !important; background: transparent !important; box-shadow: none !important; border: 0 !important; }
+body.node-main-login #maincontent .cbi-value { position: relative; width: 100% !important; margin: 16px 0 !important; padding: 0 !important; background: transparent !important; }
+body.node-main-login #maincontent .cbi-value::before, body.node-main-login #maincontent .cbi-value::after, body.node-main-login #maincontent .cbi-value-field::before, body.node-main-login #maincontent .cbi-value-field::after { content: none !important; }
+body.node-main-login #maincontent .cbi-value-title { display: none !important; }
+body.node-main-login #maincontent .cbi-value-field { width: 100% !important; margin: 0 !important; padding: 0 !important; float: none !important; }
+body.node-main-login #maincontent input[name="luci_username"], body.node-main-login #maincontent input[name="luci_password"] { display: block !important; width: 100% !important; max-width: 100% !important; height: 44px !important; margin: 0 !important; padding: 10px 42px !important; text-align: center !important; text-indent: 0 !important; box-sizing: border-box !important; color: #343a40 !important; background-color: #fff !important; background-repeat: no-repeat !important; background-position: 14px center !important; background-size: 18px 18px !important; font-family: sans-serif !important; }
+body.node-main-login #maincontent input[name="luci_username"] { background-image: url('../icons/login-user.svg') !important; }
+body.node-main-login #maincontent input[name="luci_password"] { background-image: url('../icons/login-lock.svg') !important; }
+body.node-main-login #maincontent .cbi-page-actions { width: 100% !important; margin: 20px 0 0 !important; padding: 0 !important; text-align: center !important; background: transparent !important; }
+body.node-main-login #maincontent .cbi-button[type="submit"] { display: block !important; width: 100% !important; height: 44px; margin: 0 !important; }
+.main .main-left .nav li.slide .menu[data-title=Control]::before { content: '\e90d'; color: #41bdf5; }
+#topmenu > li.slide > a.menu::before { width: 20px; text-align: center; top: 50%; transform: translateY(-50%); }
+#maincontent .ifacebadge { display: inline-flex; align-items: center; gap: 4px; vertical-align: middle; max-width: 100%; white-space: nowrap; }
+#maincontent .ifacebadge img { display: inline-block; width: 16px; height: 16px; max-width: none; margin: 0; vertical-align: middle; flex: 0 0 16px; }
+#maincontent .cbi-dropdown .ifacebadge { background: transparent; color: inherit; margin: 0; padding: 2px 4px; line-height: 20px; }
