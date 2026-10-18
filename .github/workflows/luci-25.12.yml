@@ -25,7 +25,7 @@ jobs:
           git -C /tmp/ucode rev-parse HEAD
           cmake -S /tmp/ucode -B /tmp/ucode/build -DFS_SUPPORT=ON
           cmake --build /tmp/ucode/build -j2
-          /tmp/ucode/build/ucode tests/compile-templates.uc ucode/template/themes/opentopd/*.ut
+          /tmp/ucode/build/ucode -L '/tmp/ucode/build/*.so' -L 'tests/mocks/*.uc' tests/compile-templates.uc ucode/template/themes/opentopd/*.ut
   lede-package:
     runs-on: ubuntu-22.04
     timeout-minutes: 120
