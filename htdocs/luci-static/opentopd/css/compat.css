@@ -1,3 +1,18 @@
 /* LuCI 25.12 containers; preserve the original palette, fonts and layout. */
 #tabmenu > .tabs { margin: .5rem 0; }
 #indicators > * { margin-left: .5rem; }
+
+/* LuCI 25.12 form tabs: ui.tabs toggles data-tab-active on panes,
+   the theme must hide inactive panes or tab clicks appear to do nothing. */
+[data-tab-title] {
+	height: 0;
+	opacity: 0;
+	overflow: hidden;
+}
+
+[data-tab-active="true"] {
+	opacity: 1;
+	height: auto;
+	overflow: visible;
+	transition: opacity .25s ease-in;
+}
