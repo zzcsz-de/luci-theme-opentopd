@@ -61,7 +61,7 @@
 
 .modal > .button-row {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	flex-wrap: wrap;
 }
 
@@ -70,7 +70,7 @@
 }
 
 .modal > .button-row > button:first-of-type {
-	margin-right: auto;
+	margin-right: .5em;
 }
 
 body.modal-overlay-active {
