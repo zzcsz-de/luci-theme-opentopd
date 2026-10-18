@@ -45,7 +45,10 @@ git diff --check
 ```
 
 The GitHub workflow builds a native ucode compiler, compiles both templates,
-and separately attempts a real LEDE x86-64 package build. Template compilation
+and separately builds the actual LEDE package target with distro host tools and
+`NO_DEPS=1`. This is an architecture-independent package smoke build: runtime
+dependencies are declared but not cross-compiled, and no firmware image is built.
+Template compilation
 uses a host-only `luci.core` stub; it does not prove router module availability
 or authentication behavior. LEDE and ucode commit hashes are printed in CI logs.
 
