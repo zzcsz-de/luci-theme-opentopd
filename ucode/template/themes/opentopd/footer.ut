@@ -1,0 +1,17 @@
+{# Copyright 2019-2023 sirpdboy; Apache-2.0 #}
+{% if (!blank_page): %}
+                </div>
+                <footer class="mobile-hide">
+<a class="luci-link" href="https://github.com/openwrt/luci">Powered by {{ version.luciname }} ({{ version.luciversion }})</a> /
+<a href="https://github.com/sirpdboy/luci-theme-opentopd">OpentopdTheme</a> /
+{{ version.distname }} {{ version.distversion }}
+<ul class="breadcrumb pull-right" id="modemenu" style="display:none"></ul>
+                </footer>
+            </div>
+        </div>
+    </div>
+<script src="{{ media }}/js/script.js"></script>
+<script>L.require('menu-opentopd');</script>
+{% endif %}
+</body>
+</html>

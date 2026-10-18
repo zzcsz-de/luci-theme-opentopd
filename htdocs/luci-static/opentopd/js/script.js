@@ -30,43 +30,17 @@
     }
 
 
-    var lastNode = undefined;
-    var mainNodeName = undefined;
-
-    var nodeUrl = "";
-    (function (node) {
-        if (node[0] == "admin") {
-            luciLocation = [node[1], node[2]];
-        } else {
-            luciLocation = node;
-        }
-
-        for (var i in luciLocation) {
-            nodeUrl += luciLocation[i];
-            if (i != luciLocation.length - 1) {
-                nodeUrl += "/";
-            }
-        }
-    })(luciLocation);
-
-    /**
-     * get the current node by Burl (primary)
-     * @returns {boolean} success?
-     */
-    function getCurrentNodeByUrl() {
-        var ret = false;
-        if (!$('body').hasClass('logged-in')) {
-            luciLocation = ["Main", "Login"];
-            return true;
-        }
-
-        return ret;
-    }
+    var lastNode;
+    var path = (window.L && L.env.dispatchpath) || [];
+    var mainNodeName = $('body').hasClass('logged-in')
+        ? 'node-' + path.slice(1, 3).join('-').replace(/[ \t\n\r\/]+/g, '_').toLowerCase()
+        : 'node-main-login';
+    $('body').addClass(mainNodeName);
 
     /**
      * menu click
      */
-    $(".main > .main-left > .nav > .slide > .menu").click(function () {
+    $('.main-left').on('click', '.nav > .slide > .menu', function () {
         var ul = $(this).next(".slide-menu");
         var menu = $(this);
         if (!menu.hasClass("exit")) {
@@ -91,7 +65,7 @@
     /**
      * hook menu click and add the hash
      */
-    $(".main > .main-left > .nav > .slide > .slide-menu > li > a").click(function () {
+    $('.main-left').on('click', '.slide-menu > li > a', function () {
         if (lastNode != undefined)
             lastNode.removeClass("active");
         $(this).parent().addClass("active");
@@ -99,36 +73,6 @@
         return true;
     });
 
-    /**
-     * fix menu click
-     */
-    $(".main > .main-left > .nav > .slide > .slide-menu > li").click(function () {
-        if (lastNode != undefined)
-            lastNode.removeClass("active");
-        $(this).addClass("active");
-        $(".main > .loading").fadeIn("fast");
-        window.location = $($(this).find("a")[0]).attr("href");
-        return false;
-    });
-    
-    /**
-     * fix submenu click
-     */
-    $("#maincontent > .container > .tabs > li").click(function () {
-        $(".main > .loading").fadeIn("fast");
-        window.location = $($(this).find("a")[0]).attr("href");
-        return false;
-    });
-
-    /**
-     * get current node and open it
-     */
-    if (getCurrentNodeByUrl()) {
-        mainNodeName = "node-" + luciLocation[0] + "-" + luciLocation[1];
-        mainNodeName = mainNodeName.replace(/[ \t\n\r\/]+/g, "_").toLowerCase();
-        $("body").addClass(mainNodeName);
-	
-    }
     $(".cbi-button-up").val("");
     $(".cbi-button-down").val("");
 
@@ -142,7 +86,7 @@
         if (onclick == undefined || onclick == "") {
             that.click(function () {
                 var href = that.attr("href");
-                if (href.indexOf("#") == -1) {
+                if (href && href.indexOf("#") == -1) {
                     $(".main > .loading").fadeIn("fast");
                     return true;
                 }
