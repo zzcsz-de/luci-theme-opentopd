@@ -11,7 +11,7 @@
         </div>
     </div>
 <script src="{{ media }}/js/script.js"></script>
-<script>L.require('menu-opentopd');</script>
+<script>L.require('menu-opentopd').catch(e => console.error('menu-opentopd: failed to load', e));</script>
 {% endif %}
 </body>
 </html>

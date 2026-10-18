@@ -5,7 +5,7 @@
 // Based on LuCI's menu-bootstrap.js (The LuCI Team, Apache-2.0).
 return baseclass.extend({
  __init__() {
-  ui.menu.load().then(tree => this.render(tree));
+  ui.menu.load().then(tree => this.render(tree)).catch(e => console.error('menu-opentopd: failed to load menu', e));
  },
 
  render(tree) {
