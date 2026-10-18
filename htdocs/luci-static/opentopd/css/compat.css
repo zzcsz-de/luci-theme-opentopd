@@ -85,7 +85,11 @@ body.modal-overlay-active #modal_overlay {
 	visibility: visible;
 }
 
-#modal_overlay > .modal.uci-dialog,
-#modal_overlay > .modal.cbi-modal {
+#modal_overlay > .modal.uci-dialog {
 	max-width: 900px;
+}
+
+#modal_overlay > .modal.cbi-modal {
+	max-width: none;
+	width: 90%;
 }
