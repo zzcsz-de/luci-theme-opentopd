@@ -25,7 +25,7 @@ jobs:
           git -C /tmp/ucode rev-parse HEAD
           cmake -S /tmp/ucode -B /tmp/ucode/build -DFS_SUPPORT=ON
           cmake --build /tmp/ucode/build -j2
-          /tmp/ucode/build/ucode -L '/tmp/ucode/build/*.so' -L 'tests/mocks/*.uc' tests/compile-templates.uc ucode/template/themes/opentopd/*.ut
+          /tmp/ucode/build/ucode -L '/tmp/ucode/build/*.so' -L "$GITHUB_WORKSPACE/tests/mocks/*.uc" tests/compile-templates.uc ucode/template/themes/opentopd/*.ut
   lede-package:
     runs-on: ubuntu-22.04
     timeout-minutes: 120
@@ -53,8 +53,8 @@ jobs:
       - name: Compile theme package (including required build tools)
         working-directory: lede
         run: |
-          make tools/install -j2 V=s
-          make toolchain/install -j2 V=s
+          # This architecture-independent theme has no C/C++ sources.
+          # Build its actual package target without an unrelated full toolchain.
           make package/luci-theme-opentopd/compile -j2 V=s
           find bin -name 'luci-theme-opentopd*.ipk' -print | tee /tmp/theme-packages
           test -s /tmp/theme-packages
