@@ -2,7 +2,7 @@ name: LuCI 25.12 compatibility
 on:
   push:
     branches: [luci-25.12]
-  pull_request:
+#  pull_request:
   workflow_dispatch:
 permissions:
   contents: read
