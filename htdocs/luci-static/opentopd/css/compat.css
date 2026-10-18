@@ -92,4 +92,5 @@ body.modal-overlay-active #modal_overlay {
 #modal_overlay > .modal.cbi-modal {
 	max-width: none;
 	width: 90%;
+	max-height: 90vh;
 }
