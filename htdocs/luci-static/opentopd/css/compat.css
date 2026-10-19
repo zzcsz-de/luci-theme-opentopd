@@ -233,24 +233,8 @@ select {
 	color: #ffffff !important;
 }
 
-/* 保存并应用 split-button (LuCI ui.ComboButton) popup.
-   Root cause: this menu is rendered by LuCI's ui.Dropdown as
-   Bootstrap .dropdown-menu class, which is why rules targeting
-   .dropdown-menu had no effect. */
-	background: #e4ddce !important;
-	background-color: #e4ddce !important;
-	border: 1px solid #888 !important;
-	border-radius: .25rem;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, .18);
-
-
-	color: #5f513f !important;
-
-
-	background: #0066cc !important;
-	background-color: #0066cc !important;
-	color: #ffffff !important;
-
+/* The Save & Apply action popup is a LuCI .cbi-dropdown > ul list.
+   Its colors are set separately below to avoid recoloring normal dropdowns. */
 
 /* The open dropdown list must paint above modal content */
 .cbi-dropdown[open] > ul {
@@ -298,4 +282,42 @@ div.cbi-dropdown.cbi-button-apply[open] > span.more {
 }
 .cbi-dropdown[open] > ul {
 	background-color: #e8e8e8 !important;
+}
+
+/* Save & Apply combo-button popup: match the orange button when expanded.
+   This is scoped to the form action area and the UCI changes modal.
+   The unscoped .cbi-dropdown[open] rules above remain for normal selectors. */
+.cbi-page-actions .cbi-dropdown[open] > ul,
+.cbi-dropdown.cbi-button-apply[open] > ul,
+#modal_overlay .button-row > .cbi-dropdown[open] > ul {
+	background: #f36c21 !important;
+	background-color: #f36c21 !important;
+	border: 1px solid #c65621 !important;
+}
+
+.cbi-page-actions .cbi-dropdown[open] > ul > li,
+.cbi-dropdown.cbi-button-apply[open] > ul > li,
+#modal_overlay .button-row > .cbi-dropdown[open] > ul > li {
+	background-color: #f36c21 !important;
+	color: #ffffff !important;
+}
+
+.cbi-page-actions .cbi-dropdown[open] > ul > li *,
+.cbi-dropdown.cbi-button-apply[open] > ul > li *,
+#modal_overlay .button-row > .cbi-dropdown[open] > ul > li * {
+	color: #ffffff !important;
+}
+
+.cbi-page-actions .cbi-dropdown[open] > ul > li[selected],
+.cbi-dropdown.cbi-button-apply[open] > ul > li[selected],
+#modal_overlay .button-row > .cbi-dropdown[open] > ul > li[selected] {
+	background-color: #e2641d !important;
+	color: #ffffff !important;
+}
+
+.cbi-page-actions .cbi-dropdown[open] > ul > li:hover,
+.cbi-dropdown.cbi-button-apply[open] > ul > li:hover,
+#modal_overlay .button-row > .cbi-dropdown[open] > ul > li:hover {
+	background-color: #c65621 !important;
+	color: #ffffff !important;
 }
