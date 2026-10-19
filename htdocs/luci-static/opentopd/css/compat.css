@@ -205,13 +205,16 @@ select {
 /* Custom dropdown widgets: beige background to match native selects */
 .cbi-dropdown {
 	background-color: #e4ddce !important;
-	min-width: 14rem !important;
+	min-width: 10rem !important;
 }
 
-/* Dropdown arrow: transparent background so it sits inside the beige box */
+/* Dropdown arrow: transparent background so it sits inside the beige box,
+   sized to match native select arrow */
 .cbi-dropdown > .open {
 	background: transparent !important;
 	border: none !important;
+	font-size: 0.8rem !important;
+	padding-right: 0.5rem !important;
 }
 
 /* Custom dropdown open menu: light gray to match native select */
@@ -219,9 +222,9 @@ select {
 	background-color: #f0f0f0 !important;
 }
 
-/* Native selects: match the text input width from reference */
+/* Native selects: match width */
 select {
-	min-width: 14rem !important;
+	min-width: 10rem !important;
 }
 
 /* The open dropdown list must paint above modal content */
