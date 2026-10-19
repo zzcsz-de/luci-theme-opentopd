@@ -205,6 +205,12 @@ select {
 /* Custom dropdown widgets: beige background to match native selects */
 .cbi-dropdown {
 	background-color: #e4ddce !important;
+	min-width: 14rem !important;
+}
+
+/* Native selects: match the text input width from reference */
+select {
+	min-width: 14rem !important;
 }
 
 /* The open dropdown list must paint above modal content */
