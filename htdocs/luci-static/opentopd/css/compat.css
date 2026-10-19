@@ -202,6 +202,11 @@ select {
 	display: none !important;
 }
 
+/* Custom dropdown widgets: beige background to match native selects */
+.cbi-dropdown {
+	background-color: #e4ddce !important;
+}
+
 /* The open dropdown list must paint above modal content */
 .cbi-dropdown[open] ul.dropdown {
 	z-index: 2000 !important;
