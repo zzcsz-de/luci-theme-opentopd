@@ -180,3 +180,42 @@
     }
 
 })(jQuery);
+
+/* Fix cbi-dropdown clipped by modal ancestors: force overflow visible
+ * on all ancestors when a dropdown opens, restore when it closes.
+ * CSS :has() alone proved unreliable for this. */
+(function() {
+    function fixAncestors(dropdown, open) {
+        var el = dropdown;
+        while (el && el !== document.body) {
+            if (open) {
+                if (!el.hasAttribute('data-orig-overflow')) {
+                    el.setAttribute('data-orig-overflow', el.style.overflow || '');
+                    el.style.overflow = 'visible';
+                }
+            } else {
+                if (el.hasAttribute('data-orig-overflow')) {
+                    el.style.overflow = el.getAttribute('data-orig-overflow');
+                    el.removeAttribute('data-orig-overflow');
+                }
+            }
+            el = el.parentElement;
+        }
+    }
+
+    if (typeof MutationObserver !== 'undefined') {
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(m) {
+                if (m.type === 'attributes' && m.attributeName === 'open' &&
+                    m.target.classList && m.target.classList.contains('cbi-dropdown')) {
+                    fixAncestors(m.target, m.target.hasAttribute('open'));
+                }
+            });
+        });
+        observer.observe(document.body, {
+            attributes: true,
+            attributeFilter: ['open'],
+            subtree: true
+        });
+    }
+})();
