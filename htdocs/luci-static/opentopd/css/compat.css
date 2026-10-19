@@ -318,25 +318,57 @@ div.cbi-dropdown.cbi-button-apply[open] > span.more {
 	color: #000000 !important;
 }
 
-/* Save & Apply popup: third visible row (the last dropdown choice) is orange.
-   Keep the first two visible rows as they are. LuCI ui.ComboButton uses
-   .cbi-dropdown.btn.cbi-button; ordinary select dropdowns are unaffected.
-   Specificity deliberately overrides older !important gray/black rules. */
-.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li:last-child,
-.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li:last-child[selected],
-.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li:last-child.focus {
+/* LuCI 25.12 ComboButton has two separate lists when expanded:
+   ul.dropdown = the two popup choices; ul.preview = the button face.
+   Keep the popup gray/black, and make only the actual button orange/white.
+   All selectors are limited to ComboButtons (btn cbi-button), not selects. */
+.cbi-dropdown.btn.cbi-button[open] > ul.dropdown,
+.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li,
+.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li[selected],
+.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li.focus {
+	background: #e8e8e8 !important;
+	background-color: #e8e8e8 !important;
+	color: #000000 !important;
+}
+.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li:hover {
+	background: #d4d4d4 !important;
+	background-color: #d4d4d4 !important;
+}
+.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li,
+.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li * {
+	color: #000000 !important;
+}
+
+/* The cloned preview is the THIRD VISIBLE ROW in the screenshot,
+   despite not being the final <li> of the popup menu. Restore its
+   normal flex layout: older generic [open]>ul rules wrongly positioned
+   both ul.dropdown and ul.preview as absolute elements. */
+.cbi-dropdown.btn.cbi-button[open] > ul.preview {
+	position: static !important;
+	display: flex !important;
+	flex: 1 1 auto !important;
+	width: auto !important;
+	min-width: 0 !important;
+	max-width: none !important;
+	max-height: none !important;
+	height: auto !important;
+	overflow: hidden !important;
 	background: #f36c21 !important;
 	background-color: #f36c21 !important;
 	color: #ffffff !important;
 }
-
-.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li:last-child,
-.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li:last-child * {
+.cbi-dropdown.btn.cbi-button[open] > ul.preview > li,
+.cbi-dropdown.btn.cbi-button[open] > ul.preview > li[selected],
+.cbi-dropdown.btn.cbi-button[open] > ul.preview > li[display],
+.cbi-dropdown.btn.cbi-button[open] > ul.preview > li * {
+	background: #f36c21 !important;
+	background-color: #f36c21 !important;
 	color: #ffffff !important;
+	text-shadow: none !important;
 }
-
-.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li:last-child:hover {
-	background: #c65621 !important;
-	background-color: #c65621 !important;
+.cbi-dropdown.btn.cbi-button[open] > span.open,
+.cbi-dropdown.btn.cbi-button[open] > span.more {
+	background: #f36c21 !important;
+	background-color: #f36c21 !important;
 	color: #ffffff !important;
 }
