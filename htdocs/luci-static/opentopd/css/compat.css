@@ -164,3 +164,9 @@ select {
 	max-height: 24rem !important;
 	overflow-y: auto !important;
 }
+
+/* Zone badges have complex nested content; don't clip them */
+.cbi-dropdown[open] ul.dropdown > li {
+	overflow: visible !important;
+	white-space: normal !important;
+}
