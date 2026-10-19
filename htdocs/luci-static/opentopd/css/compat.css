@@ -208,9 +208,9 @@ select {
 	min-width: 14rem !important;
 }
 
-/* Custom dropdown open menu: gray background to match native select */
+/* Custom dropdown open menu: light gray to match native select */
 .cbi-dropdown[open] ul.dropdown {
-	background-color: #d4d4d4 !important;
+	background-color: #f0f0f0 !important;
 }
 
 /* Native selects: match the text input width from reference */
