@@ -94,3 +94,53 @@ body.modal-overlay-active #modal_overlay {
 	width: 90%;
 	max-height: 90vh;
 }
+
+/* UI polish: button spacing, input widths, dropdowns */
+
+/* 1. Buttons: breathing room between adjacent buttons */
+.btn + .btn,
+.btn + .cbi-button,
+.cbi-button + .btn,
+.cbi-button + .cbi-button {
+	margin-left: 0.6rem;
+}
+
+/* 2. Text inputs: prevent cramped narrow fields */
+.cbi-input-text,
+.cbi-input-password {
+	min-width: 14rem;
+}
+
+/* 3. Select dropdowns: clearer arrow indicator */
+select {
+	padding-right: 2.2rem !important;
+	background-size: 12px !important;
+}
+
+/* 4. Dropdown menus (e.g. Save&Apply split button): theme-styled */
+.dropdown-menu {
+	background: #fff;
+	border: 1px solid #B9AD9E;
+	border-radius: 0.25rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+	min-width: 10rem;
+	padding: 0.3rem 0;
+	z-index: 1000;
+}
+
+.dropdown-menu > li {
+	list-style: none;
+}
+
+.dropdown-menu > li > a {
+	display: block;
+	padding: 0.55rem 1rem;
+	color: #5f513f;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.dropdown-menu > li > a:hover {
+	background: rgba(254, 120, 0, 0.12);
+	color: #3e362b;
+}
