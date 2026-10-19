@@ -317,3 +317,26 @@ div.cbi-dropdown.cbi-button-apply[open] > span.more {
 	background: #d4d4d4 !important;
 	color: #000000 !important;
 }
+
+/* Save & Apply popup: third visible row (the last dropdown choice) is orange.
+   Keep the first two visible rows as they are. LuCI ui.ComboButton uses
+   .cbi-dropdown.btn.cbi-button; ordinary select dropdowns are unaffected.
+   Specificity deliberately overrides older !important gray/black rules. */
+.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li:last-child,
+.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li:last-child[selected],
+.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li:last-child.focus {
+	background: #f36c21 !important;
+	background-color: #f36c21 !important;
+	color: #ffffff !important;
+}
+
+.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li:last-child,
+.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li:last-child * {
+	color: #ffffff !important;
+}
+
+.cbi-dropdown.btn.cbi-button[open] > ul.dropdown > li:last-child:hover {
+	background: #c65621 !important;
+	background-color: #c65621 !important;
+	color: #ffffff !important;
+}
