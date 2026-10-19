@@ -240,14 +240,13 @@
             if (prev && prev.classList.contains('cbi-dropdown')) {
                 prev.style.setProperty('background-color', '#f36c21', 'important');
                 prev.style.setProperty('background', '#f36c21', 'important');
-                // Force all children too
-                var all = prev.querySelectorAll('*');
-                for (var i = 0; i < all.length; i++) {
-                    if (all[i].tagName !== 'UL' && all[i].tagName !== 'LI') {
-                        all[i].style.setProperty('background-color', '#f36c21', 'important');
-                        all[i].style.setProperty('color', '#ffffff', 'important');
+                // Style only the visible button face; do not recolor menu items.
+                Array.from(prev.children).forEach(function(child) {
+                    if (child.tagName === 'SPAN' || child.tagName === 'DIV') {
+                        child.style.setProperty('background-color', '#f36c21', 'important');
+                        child.style.setProperty('color', '#ffffff', 'important');
                     }
-                }
+                });
             }
         }
     }
@@ -258,16 +257,13 @@
             dd.style.setProperty('background-color', '#f36c21', 'important');
             dd.style.setProperty('border-color', '#c65621', 'important');
             dd.style.setProperty('color', '#ffffff', 'important');
-            // Also style inner spans (text display area)
-            var spans = dd.querySelectorAll('span');
-            for (var i = 0; i < spans.length; i++) {
-                var sp = spans[i];
-                // Don't style the dropdown arrow or the menu
-                if (!sp.classList.contains('open')) {
-                    sp.style.setProperty('background-color', '#f36c21', 'important');
-                    sp.style.setProperty('color', '#ffffff', 'important');
+            // Recolor only the button face, never spans inside the popup list.
+            Array.from(dd.children).forEach(function(child) {
+                if (child.tagName === 'SPAN' || child.tagName === 'DIV') {
+                    child.style.setProperty('background-color', '#f36c21', 'important');
+                    child.style.setProperty('color', '#ffffff', 'important');
                 }
-            }
+            });
         }
     }
 
