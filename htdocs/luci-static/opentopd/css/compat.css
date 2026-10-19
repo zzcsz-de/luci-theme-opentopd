@@ -197,11 +197,6 @@ select {
 	overflow: visible !important;
 }
 
-/* Select dropdowns: white background to match reference */
-select {
-	background-color: #fff !important;
-}
-
 /* Hide the '...' more button in cbi-dropdown to match reference */
 .cbi-dropdown > .more {
 	display: none !important;
