@@ -447,10 +447,10 @@ div.cbi-dropdown.cbi-button-apply[open] > span.more {
 	overflow-y: auto !important;
 }
 
-/* Interface edit dialog: align protocol, device and DHCPv6 selectors.
-   LuCI renders proto/reqaddress as native <select>, while _net_device
-   and reqprefix are ui.Dropdown/ui.Combobox controls. Target the actual
-   form option data-name so ordinary dropdowns stay unchanged. */
+/* Interface edit dialog: matching native selects and custom LuCI dropdowns.
+   Protocol / reqaddress are native selects. Device / reqprefix are LuCI
+   Dropdown / Combobox widgets, so width alone does not match their height,
+   border and bevel. Restrict changes to the four named form options. */
 #modal_overlay .cbi-value[data-name="proto"] .cbi-value-field select,
 #modal_overlay .cbi-value[data-name="_net_device"] .cbi-value-field .cbi-dropdown,
 #modal_overlay .cbi-value[data-name="reqaddress"] .cbi-value-field select,
@@ -459,21 +459,62 @@ div.cbi-dropdown.cbi-button-apply[open] > span.more {
 	width: 180px !important;
 	min-width: 180px !important;
 	max-width: 100% !important;
+	height: 2.75rem !important;
+	min-height: 2.75rem !important;
+	margin: .25rem 0 !important;
+	vertical-align: middle !important;
+	border: 1px solid #b9ad9e !important;
+	border-radius: .25rem !important;
+	background-color: #e4ddce !important;
+	color: #5f513f !important;
+	box-shadow: inset 1px 1px 3px rgba(118,108,100,.26),
+	            0 1px 1px rgba(255,255,255,.6) !important;
+	transition: box-shadow .15s ease !important;
 }
 
-/* Give LuCI's small text-glyph ▾ the same visual weight as a native
-   select arrow without modifying the Save & Apply combo button. */
+/* The two custom controls must inherit the native box's vertical centering
+   while leaving the separately positioned floating ul.dropdown unchanged. */
+#modal_overlay .cbi-value[data-name="_net_device"] .cbi-dropdown,
+#modal_overlay .cbi-value[data-name="reqprefix"] .cbi-dropdown {
+	align-items: center !important;
+}
+
+#modal_overlay .cbi-value[data-name="_net_device"] .cbi-dropdown > ul:not(.dropdown),
+#modal_overlay .cbi-value[data-name="reqprefix"] .cbi-dropdown > ul:not(.dropdown) {
+	box-sizing: border-box !important;
+	min-width: 0 !important;
+	flex: 1 1 auto !important;
+	align-items: center !important;
+}
+
+/* LuCI draws a tiny text '▾' in span.open. Replace its glyph with a
+   10px CSS triangle comparable to the native select's 10px SVG arrow.
+   This targets neither the popup options nor Save & Apply. */
 #modal_overlay .cbi-value[data-name="_net_device"] .cbi-dropdown > span.open,
 #modal_overlay .cbi-value[data-name="reqprefix"] .cbi-dropdown > span.open {
-	font-size: 1.25rem !important;
+	font-size: 0 !important;
 	line-height: 1 !important;
-	flex-basis: 1.5rem !important;
-	align-items: center;
-	justify-content: center;
-	padding: 0 .25rem !important;
+	flex: 0 0 1.5rem !important;
+	align-items: center !important;
+	justify-content: center !important;
+	padding: 0 !important;
+	background: transparent !important;
+	color: #707070 !important;
 }
 
-/* Narrow screens: keep all four controls within the modal. */
+#modal_overlay .cbi-value[data-name="_net_device"] .cbi-dropdown > span.open::after,
+#modal_overlay .cbi-value[data-name="reqprefix"] .cbi-dropdown > span.open::after {
+	content: "";
+	display: block;
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 6px solid #707070;
+}
+
+/* Mobile screens: keep equal widths where possible without overflowing
+   the dialog. The controls stay the same size within available space. */
 @media (max-width: 480px) {
 	#modal_overlay .cbi-value[data-name="proto"] .cbi-value-field select,
 	#modal_overlay .cbi-value[data-name="_net_device"] .cbi-value-field .cbi-dropdown,
