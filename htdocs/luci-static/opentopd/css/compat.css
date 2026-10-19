@@ -184,3 +184,8 @@ select {
 .cbi-dropdown[open] ul.dropdown {
 	z-index: 2000 !important;
 }
+
+/* When a dropdown is open, don't let the overlay clip it */
+#modal_overlay:has(.cbi-dropdown[open]) {
+	overflow: visible;
+}
