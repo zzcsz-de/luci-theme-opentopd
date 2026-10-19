@@ -117,33 +117,8 @@ select {
 	background-size: 12px !important;
 }
 
-/* 4. Dropdown menus (e.g. Save&Apply split button): theme-styled */
-.dropdown-menu {
-	background: #fff;
-	border: 1px solid #B9AD9E;
-	border-radius: 0.25rem;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
-	min-width: 10rem;
-	padding: 0.3rem 0;
-	z-index: 1000;
-}
-
-.dropdown-menu > li {
-	list-style: none;
-}
-
-.dropdown-menu > li > a {
-	display: block;
-	padding: 0.55rem 1rem;
-	color: #5f513f;
-	text-decoration: none;
-	white-space: nowrap;
-}
-
-.dropdown-menu > li > a:hover {
-	background: rgba(254, 120, 0, 0.12);
-	color: #3e362b;
-}
+/* (removed: old .dropdown-menu rules targeted a class LuCI never renders;
+   the Save & Apply ComboButton popup is styled by the rules further down) */
 
 /* Dropdown selects: undo the theme's global width:6rem which truncates option text */
 select {
@@ -159,7 +134,7 @@ select {
 /* Fix cbi-dropdown list clipped to one item: theme sets overflow-y:hidden
    on .cbi-dropdown>ul without overriding it in the open state */
 /* cbi-dropdown open state: follow luci-theme-argon reference */
-.cbi-dropdown[open] ul.dropdown {
+.cbi-dropdown[open] > ul {
 	position: absolute !important;
 	z-index: 1100 !important;
 	display: block !important;
@@ -174,9 +149,33 @@ select {
 }
 
 /* Zone badges have complex nested content; don't clip them */
-.cbi-dropdown[open] ul.dropdown > li {
+.cbi-dropdown[open] > ul > li {
 	overflow: visible !important;
 	white-space: normal !important;
+}
+
+/* Selected item: blue highlight, not dark */
+.cbi-dropdown[open] > ul > li[selected] {
+	background-color: #d4d4d4 !important;
+	color: #000000 !important;
+}
+
+.cbi-dropdown[open] > ul > li[selected] > * {
+	color: #000000 !important;
+}
+
+/* Save&Apply dropdown menu: gray background, black text */
+.cbi-dropdown[open] > ul {
+	background-color: #e8e8e8 !important;
+}
+
+.cbi-dropdown[open] > ul > li,
+.cbi-dropdown[open] > ul > li > * {
+	color: #000000 !important;
+}
+
+.cbi-dropdown[open] > ul > li:hover {
+	background-color: #d4d4d4 !important;
 }
 
 /* Ancestors must not clip the absolutely-positioned dropdown list */
@@ -218,21 +217,85 @@ select {
 }
 
 /* Custom dropdown open menu: light gray to match native select */
-.cbi-dropdown[open] ul.dropdown {
+.cbi-dropdown[open] > ul {
 	background-color: #f0f0f0 !important;
 }
 
-/* Native selects: match width */
-select {
-	min-width: 10rem !important;
+/* Save & Apply button: orange background with white text (primary action) */
+.cbi-button-apply {
+	background-color: #f36c21 !important;
+	border-color: #c65621 !important;
+	color: #ffffff !important;
 }
 
+.cbi-button-apply:hover {
+	background-color: #c65621 !important;
+	color: #ffffff !important;
+}
+
+/* 保存并应用 split-button (LuCI ui.ComboButton) popup.
+   Root cause: this menu is rendered by LuCI's ui.Dropdown as
+   Bootstrap .dropdown-menu class, which is why rules targeting
+   .dropdown-menu had no effect. */
+	background: #e4ddce !important;
+	background-color: #e4ddce !important;
+	border: 1px solid #888 !important;
+	border-radius: .25rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, .18);
+
+
+	color: #5f513f !important;
+
+
+	background: #0066cc !important;
+	background-color: #0066cc !important;
+	color: #ffffff !important;
+
+
 /* The open dropdown list must paint above modal content */
-.cbi-dropdown[open] ul.dropdown {
+.cbi-dropdown[open] > ul {
 	z-index: 2000 !important;
 }
 
 /* When a dropdown is open, don't let the overlay clip it */
 #modal_overlay:has(.cbi-dropdown[open]) {
 	overflow: visible;
+}
+
+/* Save&Apply ComboButton text area: force orange */
+.cbi-dropdown > span:first-child {
+	background-color: #f36c21 !important;
+	color: #ffffff !important;
+}
+
+/* Save&Apply ComboButton: exact structure from console */
+div.cbi-dropdown.cbi-button-apply,
+div.cbi-dropdown.cbi-button-apply > span:not(.open):not(.more),
+div.cbi-dropdown.cbi-button-apply > div {
+	background-color: #f36c21 !important;
+	background: #f36c21 !important;
+	color: #ffffff !important;
+	border-color: #c65621 !important;
+}
+
+/* Save&Apply button text area: orange even when dropdown is open */
+div.cbi-dropdown.cbi-button-apply[open],
+div.cbi-dropdown.cbi-button-apply[open] > span,
+div.cbi-dropdown.cbi-button-apply[open] > div {
+	background-color: #f36c21 !important;
+	background: #f36c21 !important;
+	color: #ffffff !important;
+}
+div.cbi-dropdown.cbi-button-apply[open] > span.open,
+div.cbi-dropdown.cbi-button-apply[open] > span.more {
+	background-color: #f36c21 !important;
+	color: #ffffff !important;
+}
+
+/* Nuclear option: any open cbi-dropdown that contains Save&Apply text */
+.cbi-dropdown[open] {
+	background-color: #f36c21 !important;
+}
+.cbi-dropdown[open] > ul {
+	background-color: #e8e8e8 !important;
 }

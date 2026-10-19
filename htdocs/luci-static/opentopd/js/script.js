@@ -210,12 +210,80 @@
                     m.target.classList && m.target.classList.contains('cbi-dropdown')) {
                     fixAncestors(m.target, m.target.hasAttribute('open'));
                 }
+                // Keep Save&Apply ComboButton orange regardless of selected action
+                if (m.target.classList && m.target.classList.contains('cbi-dropdown')) {
+                    fixApplyButton(m.target);
+                }
+            });
+            // Also check on childList changes (text content may change)
+            mutations.forEach(function(m) {
+                if (m.type === 'childList') {
+                    var dd = m.target.closest ? m.target.closest('.cbi-dropdown') : null;
+                    if (dd) fixApplyButton(dd);
+                }
             });
         });
         observer.observe(document.body, {
             attributes: true,
-            attributeFilter: ['open'],
+            attributeFilter: ['open', 'class'],
+            childList: true,
             subtree: true
         });
     }
+
+    // Force orange styling on Save&Apply/Force Apply ComboButton
+    // Find by position: it's always before the Save button
+    function fixApplyButtonByPosition() {
+        var saveBtn = document.querySelector('.cbi-button-save');
+        if (saveBtn) {
+            var prev = saveBtn.previousElementSibling;
+            if (prev && prev.classList.contains('cbi-dropdown')) {
+                prev.style.setProperty('background-color', '#f36c21', 'important');
+                prev.style.setProperty('background', '#f36c21', 'important');
+                // Force all children too
+                var all = prev.querySelectorAll('*');
+                for (var i = 0; i < all.length; i++) {
+                    if (all[i].tagName !== 'UL' && all[i].tagName !== 'LI') {
+                        all[i].style.setProperty('background-color', '#f36c21', 'important');
+                        all[i].style.setProperty('color', '#ffffff', 'important');
+                    }
+                }
+            }
+        }
+    }
+
+    function fixApplyButton(dd) {
+        var txt = dd.textContent || '';
+        if (txt.indexOf('保存并应用') !== -1 || txt.indexOf('强制应用') !== -1) {
+            dd.style.setProperty('background-color', '#f36c21', 'important');
+            dd.style.setProperty('border-color', '#c65621', 'important');
+            dd.style.setProperty('color', '#ffffff', 'important');
+            // Also style inner spans (text display area)
+            var spans = dd.querySelectorAll('span');
+            for (var i = 0; i < spans.length; i++) {
+                var sp = spans[i];
+                // Don't style the dropdown arrow or the menu
+                if (!sp.classList.contains('open')) {
+                    sp.style.setProperty('background-color', '#f36c21', 'important');
+                    sp.style.setProperty('color', '#ffffff', 'important');
+                }
+            }
+        }
+    }
+
+    // Run on load for existing buttons
+    document.querySelectorAll('.cbi-dropdown').forEach(fixApplyButton);
+    fixApplyButtonByPosition();
+
+    // Debug: log Save&Apply button HTML structure
+    setTimeout(function() {
+        document.querySelectorAll('.cbi-dropdown').forEach(function(dd) {
+            var txt = dd.textContent || '';
+            if (txt.indexOf('保存并应用') !== -1) {
+                console.log('=== SaveApply Button HTML ===');
+                console.log(dd.outerHTML.substring(0, 500));
+            }
+        });
+        fixApplyButtonByPosition();
+    }, 2000);
 })();
