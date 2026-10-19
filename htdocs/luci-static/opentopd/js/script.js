@@ -181,35 +181,14 @@
 
 })(jQuery);
 
-/* Fix cbi-dropdown clipped by modal ancestors: force overflow visible
- * on all ancestors when a dropdown opens, restore when it closes.
- * CSS :has() alone proved unreliable for this. */
+/* LuCI ui.Dropdown determines its scrolling ancestor before it opens.
+ * Never force overflow:visible on every parent during opening: doing so
+ * changes the scroll container mid-positioning and displaces zone lists.
+ * Compatibility CSS now opens only the necessary modal section ancestors. */
 (function() {
-    function fixAncestors(dropdown, open) {
-        var el = dropdown;
-        while (el && el !== document.body) {
-            if (open) {
-                if (!el.hasAttribute('data-orig-overflow')) {
-                    el.setAttribute('data-orig-overflow', el.style.overflow || '');
-                    el.style.overflow = 'visible';
-                }
-            } else {
-                if (el.hasAttribute('data-orig-overflow')) {
-                    el.style.overflow = el.getAttribute('data-orig-overflow');
-                    el.removeAttribute('data-orig-overflow');
-                }
-            }
-            el = el.parentElement;
-        }
-    }
-
     if (typeof MutationObserver !== 'undefined') {
         var observer = new MutationObserver(function(mutations) {
             mutations.forEach(function(m) {
-                if (m.type === 'attributes' && m.attributeName === 'open' &&
-                    m.target.classList && m.target.classList.contains('cbi-dropdown')) {
-                    fixAncestors(m.target, m.target.hasAttribute('open'));
-                }
                 // Keep Save&Apply ComboButton orange regardless of selected action
                 if (m.target.classList && m.target.classList.contains('cbi-dropdown')) {
                     fixApplyButton(m.target);
