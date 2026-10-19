@@ -158,7 +158,9 @@ select {
 
 /* Fix cbi-dropdown list clipped to one item: theme sets overflow-y:hidden
    on .cbi-dropdown>ul without overriding it in the open state */
-.cbi-dropdown[open] > ul.dropdown {
-	overflow-y: auto;
-	max-height: 24rem;
+.cbi-dropdown[open] ul.dropdown {
+	display: block !important;
+	height: auto !important;
+	max-height: 24rem !important;
+	overflow-y: auto !important;
 }
