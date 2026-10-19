@@ -422,3 +422,27 @@ div.cbi-dropdown.cbi-button-apply[open] > span.more {
 #modal_overlay [data-tab-active="true"]:has(.cbi-dropdown[open]) {
 	overflow: visible !important;
 }
+
+/* Zone dropdown direction fix (LuCI 25.12)
+   The legacy .cbi-section-node scroll container makes ui.Dropdown choose
+   to open UP, because it measures space inside a clipped tab rather than
+   inside the modal. The firewall zone chooser should open below its field.
+   This applies only to interface-zone dropdowns within LuCI dialogs. */
+#modal_overlay .cbi-section-node:has(.cbi-dropdown .zonebadge) {
+	overflow: visible !important;
+}
+
+#modal_overlay .cbi-value-field:has(.cbi-dropdown .zonebadge) {
+	overflow: visible !important;
+}
+
+#modal_overlay .cbi-dropdown:has(.zonebadge)[open] > ul.dropdown {
+	top: calc(100% + 2px) !important;
+	bottom: auto !important;
+	left: 0 !important;
+	right: auto !important;
+	z-index: 2100 !important;
+	min-width: 100% !important;
+	max-height: min(18rem, 50vh) !important;
+	overflow-y: auto !important;
+}
