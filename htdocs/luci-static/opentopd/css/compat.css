@@ -179,3 +179,8 @@ select {
 .cbi-value-field:has(.cbi-dropdown[open]) {
 	overflow: visible !important;
 }
+
+/* The open dropdown list must paint above modal content */
+.cbi-dropdown[open] ul.dropdown {
+	z-index: 2000 !important;
+}
