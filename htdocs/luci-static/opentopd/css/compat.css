@@ -170,3 +170,12 @@ select {
 	overflow: visible !important;
 	white-space: normal !important;
 }
+
+/* Ancestors must not clip the absolutely-positioned dropdown list */
+.cbi-dropdown[open] {
+	overflow: visible !important;
+}
+
+.cbi-value-field:has(.cbi-dropdown[open]) {
+	overflow: visible !important;
+}
