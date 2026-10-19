@@ -134,7 +134,7 @@ select {
 /* Fix cbi-dropdown list clipped to one item: theme sets overflow-y:hidden
    on .cbi-dropdown>ul without overriding it in the open state */
 /* cbi-dropdown open state: follow luci-theme-argon reference */
-.cbi-dropdown[open] > ul {
+.cbi-dropdown[open] > ul.dropdown {
 	position: absolute !important;
 	z-index: 1100 !important;
 	display: block !important;
@@ -149,32 +149,32 @@ select {
 }
 
 /* Zone badges have complex nested content; don't clip them */
-.cbi-dropdown[open] > ul > li {
+.cbi-dropdown[open] > ul.dropdown > li {
 	overflow: visible !important;
 	white-space: normal !important;
 }
 
 /* Selected item: blue highlight, not dark */
-.cbi-dropdown[open] > ul > li[selected] {
+.cbi-dropdown[open] > ul.dropdown > li[selected] {
 	background-color: #d4d4d4 !important;
 	color: #000000 !important;
 }
 
-.cbi-dropdown[open] > ul > li[selected] > * {
+.cbi-dropdown[open] > ul.dropdown > li[selected] > * {
 	color: #000000 !important;
 }
 
 /* Save&Apply dropdown menu: gray background, black text */
-.cbi-dropdown[open] > ul {
+.cbi-dropdown[open] > ul.dropdown {
 	background-color: #e8e8e8 !important;
 }
 
-.cbi-dropdown[open] > ul > li,
-.cbi-dropdown[open] > ul > li > * {
+.cbi-dropdown[open] > ul.dropdown > li,
+.cbi-dropdown[open] > ul.dropdown > li > * {
 	color: #000000 !important;
 }
 
-.cbi-dropdown[open] > ul > li:hover {
+.cbi-dropdown[open] > ul.dropdown > li:hover {
 	background-color: #d4d4d4 !important;
 }
 
@@ -217,7 +217,7 @@ select {
 }
 
 /* Custom dropdown open menu: light gray to match native select */
-.cbi-dropdown[open] > ul {
+.cbi-dropdown[open] > ul.dropdown {
 	background-color: #f0f0f0 !important;
 }
 
@@ -237,14 +237,13 @@ select {
    Its colors are set separately below to avoid recoloring normal dropdowns. */
 
 /* The open dropdown list must paint above modal content */
-.cbi-dropdown[open] > ul {
+.cbi-dropdown[open] > ul.dropdown {
 	z-index: 2000 !important;
 }
 
-/* When a dropdown is open, don't let the overlay clip it */
-#modal_overlay:has(.cbi-dropdown[open]) {
-	overflow: visible;
-}
+/* Keep #modal_overlay scrollable. LuCI uses it as the scroll container
+   when calculating dropdown positioning; overflow: visible changes that
+   calculation after opening and makes the list jump out of place. */
 
 /* Save&Apply ComboButton text area: force orange */
 .cbi-dropdown > span:first-child {
@@ -276,44 +275,39 @@ div.cbi-dropdown.cbi-button-apply[open] > span.more {
 	color: #ffffff !important;
 }
 
-/* Nuclear option: any open cbi-dropdown that contains Save&Apply text */
-.cbi-dropdown[open] {
-	background-color: #f36c21 !important;
-}
-.cbi-dropdown[open] > ul {
-	background-color: #e8e8e8 !important;
-}
+/* Do not recolor every opened selector as an Apply button.
+   Standard dropdowns preserve the theme's beige control background. */
 
 /* Save & Apply dropdown choices stay gray/black while the combo button
    underneath stays orange/white, matching the collapsed primary action.
    Scope narrowly to the form actions and LuCI changes modal. */
-.cbi-page-actions .cbi-dropdown[open] > ul,
-.cbi-dropdown.cbi-button-apply[open] > ul,
-#modal_overlay .button-row > .cbi-dropdown[open] > ul {
+.cbi-page-actions .cbi-dropdown[open] > ul.dropdown,
+.cbi-dropdown.cbi-button-apply[open] > ul.dropdown,
+#modal_overlay .button-row > .cbi-dropdown[open] > ul.dropdown {
 	background: #e8e8e8 !important;
 	background-color: #e8e8e8 !important;
 	border: 1px solid #888 !important;
 }
 
-.cbi-page-actions .cbi-dropdown[open] > ul > li,
-.cbi-dropdown.cbi-button-apply[open] > ul > li,
-#modal_overlay .button-row > .cbi-dropdown[open] > ul > li {
+.cbi-page-actions .cbi-dropdown[open] > ul.dropdown > li,
+.cbi-dropdown.cbi-button-apply[open] > ul.dropdown > li,
+#modal_overlay .button-row > .cbi-dropdown[open] > ul.dropdown > li {
 	background: #e8e8e8 !important;
 	color: #000000 !important;
 }
 
-.cbi-page-actions .cbi-dropdown[open] > ul > li *,
-.cbi-dropdown.cbi-button-apply[open] > ul > li *,
-#modal_overlay .button-row > .cbi-dropdown[open] > ul > li * {
+.cbi-page-actions .cbi-dropdown[open] > ul.dropdown > li *,
+.cbi-dropdown.cbi-button-apply[open] > ul.dropdown > li *,
+#modal_overlay .button-row > .cbi-dropdown[open] > ul.dropdown > li * {
 	color: #000000 !important;
 }
 
-.cbi-page-actions .cbi-dropdown[open] > ul > li[selected],
-.cbi-dropdown.cbi-button-apply[open] > ul > li[selected],
-#modal_overlay .button-row > .cbi-dropdown[open] > ul > li[selected],
-.cbi-page-actions .cbi-dropdown[open] > ul > li:hover,
-.cbi-dropdown.cbi-button-apply[open] > ul > li:hover,
-#modal_overlay .button-row > .cbi-dropdown[open] > ul > li:hover {
+.cbi-page-actions .cbi-dropdown[open] > ul.dropdown > li[selected],
+.cbi-dropdown.cbi-button-apply[open] > ul.dropdown > li[selected],
+#modal_overlay .button-row > .cbi-dropdown[open] > ul.dropdown > li[selected],
+.cbi-page-actions .cbi-dropdown[open] > ul.dropdown > li:hover,
+.cbi-dropdown.cbi-button-apply[open] > ul.dropdown > li:hover,
+#modal_overlay .button-row > .cbi-dropdown[open] > ul.dropdown > li:hover {
 	background: #d4d4d4 !important;
 	color: #000000 !important;
 }
@@ -386,4 +380,45 @@ div.cbi-dropdown.cbi-button-apply[open] > span.more {
 
 .ifacebadge.large :is(span, strong, em, small, b, div) {
 	color: #404954 !important;
+}
+
+/* LuCI 25.12 zone dropdown in the interface firewall tab:
+   the open widget contains two ULs. Only ul.dropdown is a floating menu;
+   ul.preview is the in-place, selected-value display. Earlier generic
+   [open] > ul positioning accidentally floated BOTH lists and dragged the
+   green firewall-zone badges above their field. */
+#modal_overlay .cbi-dropdown[open] > ul.preview {
+	position: static !important;
+	z-index: auto !important;
+	display: flex !important;
+	flex: 1 1 auto !important;
+	width: auto !important;
+	min-width: 0 !important;
+	max-width: none !important;
+	max-height: none !important;
+	height: auto !important;
+	left: auto !important;
+	overflow: hidden !important;
+}
+
+/* Leave room for both interface chips (lan + ipv6) side by side. */
+#modal_overlay .cbi-dropdown:has(.zonebadge) {
+	min-width: 16rem !important;
+	max-width: 100%;
+}
+
+#modal_overlay .cbi-dropdown:has(.zonebadge)[open] > ul.dropdown {
+	box-sizing: border-box;
+	min-width: 100% !important;
+}
+
+#modal_overlay .cbi-dropdown:has(.zonebadge)[open] > ul.dropdown > li .zonebadge {
+	white-space: nowrap !important;
+}
+
+/* The modal's internal tab / section nodes may clip absolutely positioned
+   menus; make only the ancestors of an actually opened widget visible. */
+#modal_overlay .cbi-section-node:has(.cbi-dropdown[open]),
+#modal_overlay [data-tab-active="true"]:has(.cbi-dropdown[open]) {
+	overflow: visible !important;
 }
