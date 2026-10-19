@@ -144,3 +144,14 @@ select {
 	background: rgba(254, 120, 0, 0.12);
 	color: #3e362b;
 }
+
+/* Dropdown selects: undo the theme's global width:6rem which truncates option text */
+select {
+	width: auto;
+	min-width: 12rem;
+}
+
+.cbi-section-table-row > .cbi-value-field select {
+	width: auto;
+	min-width: 8rem;
+}
