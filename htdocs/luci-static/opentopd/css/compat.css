@@ -372,3 +372,18 @@ div.cbi-dropdown.cbi-button-apply[open] > span.more {
 	background-color: #f36c21 !important;
 	color: #ffffff !important;
 }
+
+/* Network interface status badge: beige panel and readable dark text.
+   LuCI network/interfaces.js renders the br-lan status as .ifacebadge.large.
+   Restrict this override to large status panels and their hover tooltips;
+   ordinary small interface/zone badges keep their existing colors. */
+.ifacebadge.large {
+	background: #e4ddce !important;
+	background-color: #e4ddce !important;
+	color: #404954 !important;
+	border-color: #b9ad9e !important;
+}
+
+.ifacebadge.large :is(span, strong, em, small, b, div) {
+	color: #404954 !important;
+}
