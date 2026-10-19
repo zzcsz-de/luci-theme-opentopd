@@ -190,6 +190,13 @@ select {
 	overflow: visible !important;
 }
 
+/* All modal ancestors must not clip the open dropdown */
+#modal_overlay:has(.cbi-dropdown[open]) .modal,
+#modal_overlay:has(.cbi-dropdown[open]) .cbi-section,
+#modal_overlay:has(.cbi-dropdown[open]) .cbi-value {
+	overflow: visible !important;
+}
+
 /* The open dropdown list must paint above modal content */
 .cbi-dropdown[open] ul.dropdown {
 	z-index: 2000 !important;
