@@ -284,40 +284,36 @@ div.cbi-dropdown.cbi-button-apply[open] > span.more {
 	background-color: #e8e8e8 !important;
 }
 
-/* Save & Apply combo-button popup: match the orange button when expanded.
-   This is scoped to the form action area and the UCI changes modal.
-   The unscoped .cbi-dropdown[open] rules above remain for normal selectors. */
+/* Save & Apply dropdown choices stay gray/black while the combo button
+   underneath stays orange/white, matching the collapsed primary action.
+   Scope narrowly to the form actions and LuCI changes modal. */
 .cbi-page-actions .cbi-dropdown[open] > ul,
 .cbi-dropdown.cbi-button-apply[open] > ul,
 #modal_overlay .button-row > .cbi-dropdown[open] > ul {
-	background: #f36c21 !important;
-	background-color: #f36c21 !important;
-	border: 1px solid #c65621 !important;
+	background: #e8e8e8 !important;
+	background-color: #e8e8e8 !important;
+	border: 1px solid #888 !important;
 }
 
 .cbi-page-actions .cbi-dropdown[open] > ul > li,
 .cbi-dropdown.cbi-button-apply[open] > ul > li,
 #modal_overlay .button-row > .cbi-dropdown[open] > ul > li {
-	background-color: #f36c21 !important;
-	color: #ffffff !important;
+	background: #e8e8e8 !important;
+	color: #000000 !important;
 }
 
 .cbi-page-actions .cbi-dropdown[open] > ul > li *,
 .cbi-dropdown.cbi-button-apply[open] > ul > li *,
 #modal_overlay .button-row > .cbi-dropdown[open] > ul > li * {
-	color: #ffffff !important;
+	color: #000000 !important;
 }
 
 .cbi-page-actions .cbi-dropdown[open] > ul > li[selected],
 .cbi-dropdown.cbi-button-apply[open] > ul > li[selected],
-#modal_overlay .button-row > .cbi-dropdown[open] > ul > li[selected] {
-	background-color: #e2641d !important;
-	color: #ffffff !important;
-}
-
+#modal_overlay .button-row > .cbi-dropdown[open] > ul > li[selected],
 .cbi-page-actions .cbi-dropdown[open] > ul > li:hover,
 .cbi-dropdown.cbi-button-apply[open] > ul > li:hover,
 #modal_overlay .button-row > .cbi-dropdown[open] > ul > li:hover {
-	background-color: #c65621 !important;
-	color: #ffffff !important;
+	background: #d4d4d4 !important;
+	color: #000000 !important;
 }
